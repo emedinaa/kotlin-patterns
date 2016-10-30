@@ -1,4 +1,4 @@
-## kotlin-patterns
+# kotlin-patterns
 Examples of patterns in Kotlin
 
   Kotlin Design Patterns
@@ -8,8 +8,8 @@ Examples of patterns in Kotlin
   4. Adapter
   5. Composite
   
-# Factory
-# Singleton
-# Decorator
-# Adapter
-# Composite
+## Factory
+## Singleton
+## Decorator
+## Adapter
+## Composite
