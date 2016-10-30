@@ -22,7 +22,7 @@ Examples of patterns in Kotlin
         }
 
         fun  createProduct2():IProduct{
-            return  Product1()
+            return  Product2()
         }
     }
     
