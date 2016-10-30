@@ -25,6 +25,22 @@ Examples of patterns in Kotlin
             return  Product1()
         }
     }
+    
+    interface IProduct {
+      fun manipulate()
+    }
+    
+    class Product1 :IProduct{
+      override fun manipulate() {
+            println("Product 1")
+        }
+    }
+    
+    class Product2 :IProduct{
+      override fun manipulate() {
+            println("Product 2")
+        }
+    }
  ```
 ## Singleton
   Ensure a class has only one instance, and provide a global point of access to it.
