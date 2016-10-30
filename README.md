@@ -14,6 +14,7 @@ Examples of patterns in Kotlin
   
 ## Factory
 ## Singleton
+  Ensure a class has only one instance, and provide a global point of access to it.
   ```
     class Singleton {
       companion object{
