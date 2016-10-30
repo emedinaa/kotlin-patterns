@@ -10,6 +10,6 @@ class Factory {
     }
 
     fun  createProduct2():IProduct{
-        return  Product1()
+        return  Product2()
     }
 }
