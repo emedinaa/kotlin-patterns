@@ -14,6 +14,15 @@ Examples of patterns in Kotlin
   
 ## Factory
 ## Singleton
+  ```
+    class Singleton {
+      companion object{
+          val instance = Singleton()
+          }
+      var message:String?=null
+    }
+  ```
+
 ## Decorator
 ## Adapter
 ## Composite
