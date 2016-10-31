@@ -1,5 +1,5 @@
 # kotlin-patterns
-Examples of patterns in Kotlin
+Examples of patterns in Kotlin inpired in book [ActionScript 3.0 Design Patterns](https://www.amazon.com/ActionScript-3-0-Design-Patterns-Programming/dp/0596528469)
 
   Kotlin Design Patterns
   1. Factory
