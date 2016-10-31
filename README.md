@@ -54,7 +54,85 @@ Examples of patterns in Kotlin
   ```
 
 ## Decorator
+
+  ```
+    interface ICar {
+        fun assemble()
+    }
+    
+    class BaseCar :ICar{
+
+        override fun assemble() {
+            println("Basic Car .")
+        }
+    }
+    
+    open class Decorator(val c:ICar):ICar{
+        var car:ICar
+
+        init {
+            car=c
+        }
+
+        override fun assemble() {
+            car.assemble()
+        }
+    }
+
+    class SportsCard(c:ICar):Decorator(c){
+
+        override fun assemble() {
+            super.assemble()
+            println("Decorator adding features of Sports Car.")
+        }
+    }
+
+    class LuxuryCard(c:ICar):Decorator(c){
+
+        override fun assemble() {
+            super.assemble()
+            println("Decorator adding features of LuxuryCard Car.")
+        }
+    }
+    //example of use
+    var sportsCar= SportsCard(BaseCar())
+    sportsCar.assemble()
+
+    var sportsLuxuryCar= SportsCard(LuxuryCard(BaseCar()));
+    sportsLuxuryCar.assemble()
+  ```
 ## Adapter
+  ```
+    class Adaptee {
+
+        fun specificRequest(){
+            println("Adaptee specificRequest() ")
+        }
+    }
+    
+    interface ITarget {
+      fun request()
+    }
+    
+    class Adapter :ITarget {
+
+        var adaptee:Adaptee
+
+        init {
+            adaptee= Adaptee()
+        }
+
+
+        override fun request() {
+            adaptee.specificRequest()
+        }
+
+    }
+    //example of use
+    var target:ITarget= Adapter()
+    target.request()
+  ```
+  
 ## Composite
 ## Command
 ## Observer
