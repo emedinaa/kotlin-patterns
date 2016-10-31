@@ -3,8 +3,8 @@ package com.emedinaa.patterns
 /**
  * Created by eduardomedina on 31/10/16.
  */
-open class Decorator(val c:ICar):ICar{
-    var car:ICar
+open class Decorator(val c:Car):Car{
+    var car:Car
 
     init {
         car=c
@@ -15,7 +15,7 @@ open class Decorator(val c:ICar):ICar{
     }
 }
 
-class SportsCard(c:ICar):Decorator(c){
+class SportsCard(c:Car):Decorator(c){
 
     override fun assemble() {
         super.assemble()
@@ -23,7 +23,7 @@ class SportsCard(c:ICar):Decorator(c){
     }
 }
 
-class LuxuryCard(c:ICar):Decorator(c){
+class LuxuryCard(c:Car):Decorator(c){
 
     override fun assemble() {
         super.assemble()

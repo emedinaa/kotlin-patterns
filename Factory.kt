@@ -5,11 +5,11 @@ package com.emedinaa.patterns
  */
 class Factory {
 
-    fun createProduct1():IProduct{
+    fun createProduct1(): Product {
         return  Product1()
     }
 
-    fun  createProduct2():IProduct{
+    fun  createProduct2(): Product {
         return  Product2()
     }
 }

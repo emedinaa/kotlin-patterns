@@ -3,7 +3,7 @@ package com.emedinaa.patterns
 /**
  * Created by eduardomedina on 31/10/16.
  */
-class Command(r: Receiver):ICommand {
+class Command(r: Receiver):BaseCommand {
 
     var receiver:Receiver
     init {
@@ -14,7 +14,7 @@ class Command(r: Receiver):ICommand {
     }
 
 }
-interface ICommand {
+interface BaseCommand {
     fun execute()
 }
 
@@ -25,9 +25,9 @@ class Receiver{
 }
 
 class Invoker{
-    var currentCommand:ICommand?=null
+    lateinit  var currentCommand:BaseCommand
 
-    fun setCommand(c:ICommand){
+    fun setCommand(c:BaseCommand){
         currentCommand= c
     }
 
