@@ -17,28 +17,29 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
  ```
     class Factory {
 
-        fun createProduct1():IProduct{
+        fun createProduct1(): Product {
             return  Product1()
         }
 
-        fun  createProduct2():IProduct{
+        fun  createProduct2(): Product {
             return  Product2()
         }
     }
-    
-    interface IProduct {
-      fun manipulate()
+  
+    interface Product {
+        fun manipulate()
     }
     
-    class Product1 :IProduct{
-      override fun manipulate() {
-            println("Product 1")
+    class Product1 : Product {
+
+        override fun manipulate() {
+            println("factory Product 1")
         }
     }
     
-    class Product2 :IProduct{
-      override fun manipulate() {
-            println("Product 2")
+    class Product2 : Product {
+        override fun manipulate() {
+            println("factory Product 2")
         }
     }
     
