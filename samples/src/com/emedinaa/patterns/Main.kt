@@ -33,8 +33,15 @@ fun main(args: Array<String>) {
     var sportsCar= SportsCard(BaseCar())
     sportsCar.assemble()
 
-    var sportsLuxuryCar= SportsCard(LuxuryCard(BaseCar()));
+    var sportsLuxuryCar= SportsCard(LuxuryCard(BaseCar()))
     sportsLuxuryCar.assemble()
 
+    //Command ----------------------------------------------
 
+    var receiver:Receiver = Receiver()
+    var command:ICommand= Command(receiver)
+
+    var invoker:Invoker= Invoker()
+    invoker.setCommand(command)
+    invoker.executeCommand()
 }
