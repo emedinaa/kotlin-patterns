@@ -17,28 +17,29 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
  ```
     class Factory {
 
-        fun createProduct1():IProduct{
+        fun createProduct1(): Product {
             return  Product1()
         }
 
-        fun  createProduct2():IProduct{
+        fun  createProduct2(): Product {
             return  Product2()
         }
     }
-    
-    interface IProduct {
-      fun manipulate()
+  
+    interface Product {
+        fun manipulate()
     }
     
-    class Product1 :IProduct{
-      override fun manipulate() {
-            println("Product 1")
+    class Product1 : Product {
+
+        override fun manipulate() {
+            println("factory Product 1")
         }
     }
     
-    class Product2 :IProduct{
-      override fun manipulate() {
-            println("Product 2")
+    class Product2 : Product {
+        override fun manipulate() {
+            println("factory Product 2")
         }
     }
     
@@ -54,10 +55,11 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
 
   ```
     class Singleton {
-      companion object{
-          val instance = Singleton()
-          }
-      var message:String?=null
+
+        companion object{
+            val instance = Singleton()
+        }
+        lateinit var message:String
     }
     
     //example of use
@@ -74,19 +76,8 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
 ## Decorator
 
   ```
-    interface ICar {
-        fun assemble()
-    }
-    
-    class BaseCar :ICar{
-
-        override fun assemble() {
-            println("Basic Car .")
-        }
-    }
-    
-    open class Decorator(val c:ICar):ICar{
-        var car:ICar
+    open class Decorator(val c:Car):Car{
+        var car:Car
 
         init {
             car=c
@@ -96,44 +87,8 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
             car.assemble()
         }
     }
-
-    class SportsCard(c:ICar):Decorator(c){
-
-        override fun assemble() {
-            super.assemble()
-            println("Decorator adding features of Sports Car.")
-        }
-    }
-
-    class LuxuryCard(c:ICar):Decorator(c){
-
-        override fun assemble() {
-            super.assemble()
-            println("Decorator adding features of LuxuryCard Car.")
-        }
-    }
     
-    //example of use
-    var sportsCar= SportsCard(BaseCar())
-    sportsCar.assemble()
-
-    var sportsLuxuryCar= SportsCard(LuxuryCard(BaseCar()))
-    sportsLuxuryCar.assemble()
-  ```
-## Adapter
-  ```
-    class Adaptee {
-
-        fun specificRequest(){
-            println("Adaptee specificRequest() ")
-        }
-    }
-    
-    interface ITarget {
-      fun request()
-    }
-    
-    class Adapter :ITarget {
+    class Adapter :Target {
 
         var adaptee:Adaptee
 
@@ -147,8 +102,12 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
         }
 
     }
+
+    interface Target {
+        fun request()
+    }
     //example of use
-    var target:ITarget= Adapter()
+    var target:Target= Adapter()
     target.request()
   ```
   
@@ -156,84 +115,84 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
   ```
     class Composite(s:String): Component() {
 
-        var sName:String
-        var aChildren:MutableList<Component>
+      var sName:String
+      var aChildren:MutableList<Component>
 
-        init {
-            this.sName= s
-            aChildren= mutableListOf<Component>()
-        }
+      init {
+          this.sName= s
+          aChildren= mutableListOf<Component>()
+      }
 
-        override fun add(c: Component) {
-            super.add(c)
-            aChildren.add(c)
-        }
+      override fun add(c: Component) {
+          super.add(c)
+          aChildren.add(c)
+      }
 
-        override fun remove(c: Component) {
-            super.remove(c)
-            aChildren.remove(c)
-        }
+      override fun remove(c: Component) {
+          super.remove(c)
+          aChildren.remove(c)
+      }
 
-        override fun operation() {
-            super.operation()
-            println(this.sName)
-            aChildren.forEach{
-                it.operation()
-            }
-        }
+      override fun operation() {
+          super.operation()
+          println(this.sName)
+          aChildren.forEach{
+              it.operation()
+          }
+      }
 
-    }
+  }
 
-    class Leaf(s:String):Component(){
+  class Leaf(s:String):Component(){
 
-        var sName:String
+      var sName:String
 
-        init {
-            this.sName=s
-        }
+      init {
+          this.sName=s
+      }
 
-        override fun operation() {
-            super.operation()
+      override fun operation() {
+          super.operation()
 
-            println(this.sName)
-        }
-    }
+          println(this.sName)
+      }
+  }
 
-    open class Component{
+  open class Component{
 
-        open fun add(c:Component){
-        }
+      open fun add(c:Component){
+      }
 
-        open fun remove(c:Component){
-        }
+      open fun remove(c:Component){
+      }
 
-    open fun getChild(n:Int):Component{
-            throw UnsupportedOperationException("getChild method not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+      open fun getChild(n:Int):Component{
+          throw UnsupportedOperationException("getChild method not implemented") //To change body of created functions use File | Settings | File Templates.
+      }
 
-        open fun operation(){ }
+      open fun operation(){ }
 
-    }
+  }
     //example of use
-      var composite:Composite = Composite("root")
+    var composite:Composite = Composite("root")
 
-      var n1:Composite= Composite("composite 1")
-      n1.add(Leaf("Leaf 1"))
-      n1.add(Leaf("Leaf 2"))
+    var n1:Composite= Composite("composite 1")
+    n1.add(Leaf("Leaf 1"))
+    n1.add(Leaf("Leaf 2"))
 
-      var n2:Composite= Composite("composite 2")
-      n2.add(Leaf("Leaf 3"))
-      n2.add(Leaf("Leaf 4"))
-      n2.add(Leaf("Leaf 5"))
+    var n2:Composite= Composite("composite 2")
+    n2.add(Leaf("Leaf 3"))
+    n2.add(Leaf("Leaf 4"))
+    n2.add(Leaf("Leaf 5"))
 
-      composite.add(n1)
-      composite.add(n2)
-      composite.operation()
+    composite.add(n1)
+    composite.add(n2)
+    composite.operation()
   ```
   
 ## Command
   ```
-    class Command(r: Receiver):ICommand {
+     class Command(r: Receiver):BaseCommand {
 
         var receiver:Receiver
         init {
@@ -244,7 +203,7 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
         }
 
     }
-    interface ICommand {
+    interface BaseCommand {
         fun execute()
     }
 
@@ -255,9 +214,9 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
     }
 
     class Invoker{
-        var currentCommand:ICommand?=null
+        lateinit  var currentCommand:BaseCommand
 
-        fun setCommand(c:ICommand){
+        fun setCommand(c:BaseCommand){
             currentCommand= c
         }
 
@@ -265,12 +224,63 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
             currentCommand?.execute()
         }
     }
-    
     //example of use
     var receiver:Receiver = Receiver()
-    var command:ICommand= Command(receiver)
+    var command:BaseCommand= Command(receiver)
 
     var invoker:Invoker= Invoker()
     invoker.setCommand(command)
     invoker.executeCommand()
+  ```
+  
+## State
+  ```
+    interface State{
+
+        fun startPlay()
+        fun stopPlay()
+    }
+
+    class PlayState:State{
+        override fun startPlay() {
+            println("You're already playing...")
+        }
+
+        override fun stopPlay() {
+            println("Go to the stop state.")
+        }
+
+    }
+
+    class StopState:State{
+        override fun startPlay() {
+            println("Go to the Play state.")
+        }
+
+        override fun stopPlay() {
+            println("You're already stopped")
+        }
+    }
+
+    class VideoContext():State{
+
+        lateinit var playState:State
+        lateinit var stopState:State
+        lateinit var state:State
+
+        init {
+            println("Video is On")
+            playState= PlayState()
+            stopState= StopState()
+            state= stopState
+        }
+        override fun startPlay() {
+            state.startPlay()
+        }
+
+        override fun stopPlay() {
+            state.stopPlay()
+        }
+
+    }
   ```
