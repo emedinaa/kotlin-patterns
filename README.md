@@ -54,10 +54,11 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
 
   ```
     class Singleton {
-      companion object{
-          val instance = Singleton()
-          }
-      var message:String?=null
+
+        companion object{
+            val instance = Singleton()
+        }
+        lateinit var message:String
     }
     
     //example of use
@@ -156,84 +157,84 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
   ```
     class Composite(s:String): Component() {
 
-        var sName:String
-        var aChildren:MutableList<Component>
+      var sName:String
+      var aChildren:MutableList<Component>
 
-        init {
-            this.sName= s
-            aChildren= mutableListOf<Component>()
-        }
+      init {
+          this.sName= s
+          aChildren= mutableListOf<Component>()
+      }
 
-        override fun add(c: Component) {
-            super.add(c)
-            aChildren.add(c)
-        }
+      override fun add(c: Component) {
+          super.add(c)
+          aChildren.add(c)
+      }
 
-        override fun remove(c: Component) {
-            super.remove(c)
-            aChildren.remove(c)
-        }
+      override fun remove(c: Component) {
+          super.remove(c)
+          aChildren.remove(c)
+      }
 
-        override fun operation() {
-            super.operation()
-            println(this.sName)
-            aChildren.forEach{
-                it.operation()
-            }
-        }
+      override fun operation() {
+          super.operation()
+          println(this.sName)
+          aChildren.forEach{
+              it.operation()
+          }
+      }
 
-    }
+  }
 
-    class Leaf(s:String):Component(){
+  class Leaf(s:String):Component(){
 
-        var sName:String
+      var sName:String
 
-        init {
-            this.sName=s
-        }
+      init {
+          this.sName=s
+      }
 
-        override fun operation() {
-            super.operation()
+      override fun operation() {
+          super.operation()
 
-            println(this.sName)
-        }
-    }
+          println(this.sName)
+      }
+  }
 
-    open class Component{
+  open class Component{
 
-        open fun add(c:Component){
-        }
+      open fun add(c:Component){
+      }
 
-        open fun remove(c:Component){
-        }
+      open fun remove(c:Component){
+      }
 
-    open fun getChild(n:Int):Component{
-            throw UnsupportedOperationException("getChild method not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+      open fun getChild(n:Int):Component{
+          throw UnsupportedOperationException("getChild method not implemented") //To change body of created functions use File | Settings | File Templates.
+      }
 
-        open fun operation(){ }
+      open fun operation(){ }
 
-    }
+  }
     //example of use
-      var composite:Composite = Composite("root")
+    var composite:Composite = Composite("root")
 
-      var n1:Composite= Composite("composite 1")
-      n1.add(Leaf("Leaf 1"))
-      n1.add(Leaf("Leaf 2"))
+    var n1:Composite= Composite("composite 1")
+    n1.add(Leaf("Leaf 1"))
+    n1.add(Leaf("Leaf 2"))
 
-      var n2:Composite= Composite("composite 2")
-      n2.add(Leaf("Leaf 3"))
-      n2.add(Leaf("Leaf 4"))
-      n2.add(Leaf("Leaf 5"))
+    var n2:Composite= Composite("composite 2")
+    n2.add(Leaf("Leaf 3"))
+    n2.add(Leaf("Leaf 4"))
+    n2.add(Leaf("Leaf 5"))
 
-      composite.add(n1)
-      composite.add(n2)
-      composite.operation()
+    composite.add(n1)
+    composite.add(n2)
+    composite.operation()
   ```
   
 ## Command
   ```
-    class Command(r: Receiver):ICommand {
+     class Command(r: Receiver):BaseCommand {
 
         var receiver:Receiver
         init {
@@ -244,7 +245,7 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
         }
 
     }
-    interface ICommand {
+    interface BaseCommand {
         fun execute()
     }
 
@@ -255,9 +256,9 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
     }
 
     class Invoker{
-        var currentCommand:ICommand?=null
+        lateinit  var currentCommand:BaseCommand
 
-        fun setCommand(c:ICommand){
+        fun setCommand(c:BaseCommand){
             currentCommand= c
         }
 
@@ -265,12 +266,63 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
             currentCommand?.execute()
         }
     }
-    
     //example of use
     var receiver:Receiver = Receiver()
-    var command:ICommand= Command(receiver)
+    var command:BaseCommand= Command(receiver)
 
     var invoker:Invoker= Invoker()
     invoker.setCommand(command)
     invoker.executeCommand()
+  ```
+  
+## State
+  ```
+    interface State{
+
+        fun startPlay()
+        fun stopPlay()
+    }
+
+    class PlayState:State{
+        override fun startPlay() {
+            println("You're already playing...")
+        }
+
+        override fun stopPlay() {
+            println("Go to the stop state.")
+        }
+
+    }
+
+    class StopState:State{
+        override fun startPlay() {
+            println("Go to the Play state.")
+        }
+
+        override fun stopPlay() {
+            println("You're already stopped")
+        }
+    }
+
+    class VideoContext():State{
+
+        lateinit var playState:State
+        lateinit var stopState:State
+        lateinit var state:State
+
+        init {
+            println("Video is On")
+            playState= PlayState()
+            stopState= StopState()
+            state= stopState
+        }
+        override fun startPlay() {
+            state.startPlay()
+        }
+
+        override fun stopPlay() {
+            state.stopPlay()
+        }
+
+    }
   ```
