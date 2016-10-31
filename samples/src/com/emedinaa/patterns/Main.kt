@@ -44,4 +44,20 @@ fun main(args: Array<String>) {
     var invoker:Invoker= Invoker()
     invoker.setCommand(command)
     invoker.executeCommand()
+
+    //Composite --------------------------------------------
+    var composite:Composite = Composite("root")
+
+    var n1:Composite= Composite("composite 1")
+    n1.add(Leaf("Leaf 1"))
+    n1.add(Leaf("Leaf 2"))
+
+    var n2:Composite= Composite("composite 2")
+    n2.add(Leaf("Leaf 3"))
+    n2.add(Leaf("Leaf 4"))
+    n2.add(Leaf("Leaf 5"))
+
+    composite.add(n1)
+    composite.add(n2)
+    composite.operation()
 }
