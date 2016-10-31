@@ -43,7 +43,7 @@ Examples of patterns in Kotlin
     }
  ```
 ## Singleton
-  Ensure a class has only one instance, and provide a global point of access to it.
+
   ```
     class Singleton {
       companion object{
@@ -98,7 +98,7 @@ Examples of patterns in Kotlin
     var sportsCar= SportsCard(BaseCar())
     sportsCar.assemble()
 
-    var sportsLuxuryCar= SportsCard(LuxuryCard(BaseCar()));
+    var sportsLuxuryCar= SportsCard(LuxuryCard(BaseCar()))
     sportsLuxuryCar.assemble()
   ```
 ## Adapter
@@ -135,6 +135,48 @@ Examples of patterns in Kotlin
   
 ## Composite
 ## Command
+  ```
+    class Command(r: Receiver):ICommand {
+
+        var receiver:Receiver
+        init {
+            receiver=r
+        }
+        override fun execute() {
+            receiver.action()
+        }
+
+    }
+    interface ICommand {
+        fun execute()
+    }
+
+    class Receiver{
+        fun action(){
+            println("Receiver : doing action")
+        }
+    }
+
+    class Invoker{
+        var currentCommand:ICommand?=null
+
+        fun setCommand(c:ICommand){
+            currentCommand= c
+        }
+
+        fun executeCommand(){
+            currentCommand?.execute()
+        }
+    }
+    
+    //example of use
+    var receiver:Receiver = Receiver()
+    var command:ICommand= Command(receiver)
+
+    var invoker:Invoker= Invoker()
+    invoker.setCommand(command)
+    invoker.executeCommand()
+  ```
 ## Observer
 ## State
 ## Strategy
