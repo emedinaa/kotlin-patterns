@@ -76,19 +76,8 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
 ## Decorator
 
   ```
-    interface ICar {
-        fun assemble()
-    }
-    
-    class BaseCar :ICar{
-
-        override fun assemble() {
-            println("Basic Car .")
-        }
-    }
-    
-    open class Decorator(val c:ICar):ICar{
-        var car:ICar
+    open class Decorator(val c:Car):Car{
+        var car:Car
 
         init {
             car=c
@@ -98,44 +87,8 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
             car.assemble()
         }
     }
-
-    class SportsCard(c:ICar):Decorator(c){
-
-        override fun assemble() {
-            super.assemble()
-            println("Decorator adding features of Sports Car.")
-        }
-    }
-
-    class LuxuryCard(c:ICar):Decorator(c){
-
-        override fun assemble() {
-            super.assemble()
-            println("Decorator adding features of LuxuryCard Car.")
-        }
-    }
     
-    //example of use
-    var sportsCar= SportsCard(BaseCar())
-    sportsCar.assemble()
-
-    var sportsLuxuryCar= SportsCard(LuxuryCard(BaseCar()))
-    sportsLuxuryCar.assemble()
-  ```
-## Adapter
-  ```
-    class Adaptee {
-
-        fun specificRequest(){
-            println("Adaptee specificRequest() ")
-        }
-    }
-    
-    interface ITarget {
-      fun request()
-    }
-    
-    class Adapter :ITarget {
+    class Adapter :Target {
 
         var adaptee:Adaptee
 
@@ -149,8 +102,12 @@ Examples of patterns in Kotlin inpired by [ActionScript 3.0 Design Patterns](htt
         }
 
     }
+
+    interface Target {
+        fun request()
+    }
     //example of use
-    var target:ITarget= Adapter()
+    var target:Target= Adapter()
     target.request()
   ```
   
