@@ -55,6 +55,41 @@ Examples of patterns in Kotlin
 
 ## Decorator
 ## Adapter
+  ```
+    class Adaptee {
+
+        fun specificRequest(){
+            println("Adaptee specificRequest() ")
+        }
+    }
+    
+    interface ITarget {
+      fun request()
+    }
+    
+    class Adapter :ITarget {
+
+        var adaptee:Adaptee
+
+        init {
+            adaptee= Adaptee()
+        }
+
+
+        override fun request() {
+            adaptee.specificRequest()
+        }
+
+    }
+    //example of use
+    
+    var sportsCar= SportsCard(BaseCar())
+    sportsCar.assemble()
+
+    var sportsLuxuryCar= SportsCard(LuxuryCard(BaseCar()));
+    sportsLuxuryCar.assemble()
+  ```
+  
 ## Composite
 ## Command
 ## Observer
