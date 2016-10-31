@@ -41,6 +41,14 @@ Examples of patterns in Kotlin
             println("Product 2")
         }
     }
+    
+    //example of use
+    var factory:Factory= Factory()
+    var product1:Product1= factory.createProduct1() as Product1
+    var product2:Product2= factory.createProduct2() as Product2
+
+    product1.manipulate()
+    product2.manipulate()
  ```
 ## Singleton
 
@@ -51,6 +59,16 @@ Examples of patterns in Kotlin
           }
       var message:String?=null
     }
+    
+    //example of use
+    var singleton:Singleton= Singleton.instance
+    singleton.message= "Hello Singleton"
+
+    var nSingleton:Singleton= Singleton.instance
+
+    println("singleton "+singleton)
+    println("singleton message "+singleton.message)
+    println("nSingleton message "+nSingleton.message)
   ```
 
 ## Decorator
@@ -94,6 +112,7 @@ Examples of patterns in Kotlin
             println("Decorator adding features of LuxuryCard Car.")
         }
     }
+    
     //example of use
     var sportsCar= SportsCard(BaseCar())
     sportsCar.assemble()
