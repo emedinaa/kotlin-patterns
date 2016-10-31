@@ -8,5 +8,5 @@ class Singleton {
     companion object{
         val instance = Singleton()
     }
-    var message:String?=null
+    lateinit var message:String
 }

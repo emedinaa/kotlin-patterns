@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
     product2.manipulate()
 
     //Adapter ----------------------------------------------
-    var target:ITarget= Adapter()
+    var target:Target= Adapter()
     target.request()
 
     //Decorator---------------------------------------------
@@ -39,7 +39,7 @@ fun main(args: Array<String>) {
     //Command ----------------------------------------------
 
     var receiver:Receiver = Receiver()
-    var command:ICommand= Command(receiver)
+    var command:BaseCommand= Command(receiver)
 
     var invoker:Invoker= Invoker()
     invoker.setCommand(command)
@@ -60,4 +60,12 @@ fun main(args: Array<String>) {
     composite.add(n1)
     composite.add(n2)
     composite.operation()
+
+    // STATE -----------------------------------------------
+    var videoContext:VideoContext= VideoContext()
+
+    videoContext.startPlay()
+    videoContext.startPlay()
+    videoContext.stopPlay()
+    videoContext.stopPlay()
 }

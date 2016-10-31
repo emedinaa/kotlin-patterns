@@ -3,14 +3,14 @@ package com.emedinaa.patterns
 /**
  * Created by eduardomedina on 31/10/16.
  */
-class BaseCar :ICar{
+class BaseCar :Car{
 
     override fun assemble() {
         println("Basic Car .")
     }
 }
 
-interface ICar {
+interface Car {
     fun assemble()
 }
 
